@@ -1,6 +1,10 @@
 const result = document.getElementById("result");
+const filter = document.getElementById("filter");
 const listItems = [];
+
 getData();
+
+filter.addEventListener("input", (e) => filterData(e.target.value));
 
 async function getData() {
   const response = await fetch(`https://randomuser.me/api?results=60`);
@@ -20,5 +24,14 @@ async function getData() {
       `;
 
     result.appendChild(li);
+  });
+}
+function filterData(searchTerm) {
+  listItems.forEach((item) => {
+    if (item.innerText.toLowerCase().includes(searchTerm.toLowerCase())) {
+      item.classList.remove("hide");
+    } else {
+      item.classList.add("hide");
+    }
   });
 }
